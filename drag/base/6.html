@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+        html,
+        body,
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            list-style: none;
+        }
+
+        #divDrag {
+            background: lightgoldenrodyellow;
+            width: 200px;
+            height: 200px;
+            float: left;
+            cursor: move;
+            /*position: absolute;*/
+        }
+
+        #divTips {
+            float: left;
+            background: lightgrey;
+            width: 200px;
+            height: 200px;
+            line-height: 100px;
+            text-align: center;
+        }
+
+        #divArea {
+            clear: both;
+            background: lightblue;
+            width: 500px;
+            height: 500px;
+        }
+
+        .liF {
+            width: 300px;
+            float: left;
+        }
+
+        .liF img {
+            width: 100%;
+        }
+
+        #ulCart {
+            clear: both;
+            width:500px;
+            height:500px;
+            background: lightblue;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<ul>
+    <li class="liF">
+        <img src="./i1.jpg" id="img02"
+             alt="42" title="2006作品" draggab1e="true">
+    </li>
+    <li class="liF">
+        <img src="./i2.jpg" id="img03"
+             alt="56" title="2008作品" draggable="true">
+    </li>
+    <li class="liF">
+        <img src="./i3.jpg" id=11img04"
+             alt="52" title="2010作品" draggable="true">
+    </li>
+    <li class="liF">
+        <img src="./i4.jpg" id="img05"
+             alt="59" title="2011作品" draggable="true">
+    </li>
+</ul>
+<ul id="ulCart">
+    <li class="liT">
+        <span>书名</span>
+        <span>定价</span>
+        <span>数量</span>
+        <span>总价</span>
+    </li>
+</ul>
+
+<script>
+    //JavaScript Document
+    function $$(id) {
+        return document.getElementById(id);
+    }
+
+    //自定义页面加载时调用的函数
+
+    //获取全部的图书商品
+    var Drag = document.getElementsByTagName("img");
+    //遍历每一个图书商品
+    for (var i = 0; i < Drag.length; i++) {
+        //为每一个商品添加被拖放元素的dragstart事件
+        Drag[i].addEventListener("dragstart", function (e) {
+            var objDtf = e.dataTransfer;
+            objDtf.setData("text/html", addCart(this.title, this.alt, 1));
+        }, false);
+    }
+
+    var Cart = $$("ulCart");
+    //添加目标元素的drop事件
+    Cart.addEventListener("drop", function (e) {
+        var objDtf = e.dataTransfer;
+        var strHTML = objDtf.getData("text/html");
+        Cart.innerHTML += strHTML;
+        e.preventDefault();
+        e.stopPropagation();
+    }, false);
+
+    //添加页面的dragover事件
+    document.addEventListener("dragover", function (e) {
+        //阻止默认方法,取消拒绝被拖放
+        e.preventDefault();
+    })
+
+    //添加页面drop事件
+
+    document.addEventListener("drop", function (e) {
+        //阻止默认方法，取消拒绝被拖放
+        e.preventDefault();
+    })
+
+    //自定义向购物车中添加记录的函数
+    function addCart(a, b, c) {
+        var strHTML = "<li class='liC'>";
+        strHTML += "<span>&nbsp" +   a  + "&nbsp</span>";
+        strHTML += "<span>&nbsp" +  b  + "&nbsp</span>";
+        strHTML += "<span>&nbsp" +  c  + "&nbsp</span>";
+        strHTML += "<span>&nbsp" +  b * c  + "&nbsp</span>";
+        strHTML += "</li>";
+        return strHTML;
+    }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+        html,
+        body,
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            list-style: none;
+        }
+
+        #divDrag {
+            background: lightgoldenrodyellow;
+            width: 200px;
+            height: 200px;
+            float: left;
+            cursor: move;
+            /*position: absolute;*/
+        }
+
+        #divTips {
+            float: left;
+            background: lightgrey;
+            width: 200px;
+            height: 200px;
+            line-height: 100px;
+            text-align: center;
+        }
+
+        #divArea {
+            clear: both;
+            background: lightblue;
+            width: 500px;
+            height: 500px;
+        }
+    </style>
+
+</head>
+
+<body>
+<div class="wPub">
+    <div class="wPub">
+        <!--draggable="true"  才会有透明框-->
+        <div id="divDrag" draggable="true"></div>
+        <div id="divTips"></div>
+    </div>
+    <div id="divArea"></div>
+</div>
+<script>
+    //JavaScript Document
+    function $$(id) {
+        return document.getElementById(id);
+    }
+
+
+    var Drag = $$("divDrag");
+    var Area = $$("divArea");
+
+    //添加被拖放元素的dragstart事件
+    Drag.addEventListener('dragstart', function (e) {
+        var objDtf = e.dataTransfer;
+        //将dataTransfer对象的“effectAllowed属性值设为“copy”，表示被拖放的元素以复制的方式放置在目标元素中。
+        objDtf.effectAllowed = "copy";
+        objDtf.setData("text/plain", "拖动时动画效果");
+    }, false)
+
+    //添加加目标元素的dragover事件
+    Area.addEventListener("dragover", function (e) {
+        var objDtf = e.dataTransfer;
+        //使“effectAllowed”与“dropEffect”属性值保持一致，从而最终实现以复制的方式将拖放元素放入目标元素中的功能。
+        //除非“effectAllowed”属性值为“all”，“dropEffect”与“effectAllowed”属性值必须保持一致，否则，将不能显示设置的拖放效果。
+        objDtf.dropEffeet = "copy";
+        e.preventDefault();
+    }, false)
+
+    //添加目标元素的drop事件
+    Area.addEventListener("drop", function (e) {
+        var objDtf = e.dataTransfer;
+        var strText = objDtf.getData("text/plain");
+        Area.textContent += strText;
+        e.preventDefault();
+        e.stopPropagation();
+    }, false)
+
+    //添加页面的dragover事件
+    document.addEventListener("dragover", function (e) {
+        //阻止默认方法,取消拒绝被拖放
+        e.preventDefault();
+    })
+
+    //添加页面drop事件
+
+    document.addEventListener("drop", function (e) {
+        //阻止默认方法，取消拒绝被拖放
+        e.preventDefault();
+    })
+
+
+</script>
+</body>
+
+</html>

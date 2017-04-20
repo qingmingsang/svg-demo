@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+        html,
+        body,
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            list-style: none;
+        }
+
+        #divDrag {
+            background: lightgoldenrodyellow;
+            width: 200px;
+            height: 200px;
+            float: left;
+            cursor: move;
+            /*position: absolute;*/
+        }
+
+        #divTips {
+            float: left;
+            background: lightgrey;
+            width: 200px;
+            height: 200px;
+            line-height: 100px;
+            text-align: center;
+        }
+
+        #divArea {
+            clear: both;
+            background: lightblue;
+            width: 500px;
+            height: 500px;
+        }
+    </style>
+
+</head>
+
+<body>
+<div class="wPub">
+    <div class="wPub">
+        <!--draggable="true"  才会有透明框-->
+        <div id="divDrag" draggable="true"></div>
+        <div id="divTips"></div>
+    </div>
+    <div id="divArea"></div>
+</div>
+<script>
+    //JavaScript Document
+    function $$(id) {
+        return document.getElementById(id);
+    }
+
+    //自定义返回HTML内容函数
+    function RetDragHTMLByld(Id) {
+        var strHTML = "<div id=" + Id + "></div>";
+        return strHTML;
+    }
+    //自定义加载页面时调用的函数
+
+    var Drag = $$("divDrag");
+    var Area = $$("divArea");
+    //添加被拖放元素的dragstart事件
+    Drag.addEventListener("dragstart", function (e) {
+        var objDtf = e.dataTransfer;
+        console.log(objDtf)
+        console.log(this.id)
+        objDtf.setData("text/html", RetDragHTMLByld(this.id));
+    }, false);
+
+    //添加目标元素的drop事件
+    Area.addEventListener("drop", function (e) {
+        var objDtf = e.dataTransfer;
+        console.info(objDtf)
+        var strHTML = objDtf.getData("text/html")
+        Area.innerHTML += strHTML;
+        //阻止默认方法，取消拒绝被拖放的设置
+        e.preventDefault();
+        //停止其他事件的进程，否则，目标元素不能正常接收拖放来的数据。
+        e.stopPropagation();
+    }, false);
+
+    //添加页面的dragover事件
+    document.addEventListener("dragover", function (e) {
+        //阻止默认方法,取消拒绝被拖放
+        e.preventDefault();
+    })
+
+    //添加页面drop事件
+
+    document.addEventListener("drop", function (e) {
+        //阻止默认方法，取消拒绝被拖放
+        e.preventDefault();
+    })
+
+
+</script>
+</body>
+
+</html>

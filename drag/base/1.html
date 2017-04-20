@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+        html,
+        body,
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            list-style: none;
+        }
+
+        #divFrame {
+            background: lightgoldenrodyellow;
+            width: 500px;
+            height: 500px;
+            position: absolute;
+        }
+
+        #divTitle {
+            background: lightgrey;
+            width: 100%;
+            height: 100px;
+            line-height: 100px;
+            cursor: move;
+            text-align: center;
+        }
+    </style>
+
+</head>
+
+<body>
+<div id="divFrame">
+    <div id="divTitle">请拖动我</div>
+</div>
+<script>
+    //JavaScript Document
+    function $$(id) {
+        return document.getElementById(id);
+    }
+
+    //自定义加载页面时调用的函数
+    var started;
+    var initX, initY, offsetX, offsetY;
+    var divTitle = $$("divTitle");
+    var divFrame = $$("divFrame");
+    divFrame.style.left = 30 + "px";
+    divFrame.style.top = 20 + "px";
+
+    //按下鼠标时触发的事件
+    divTitle.addEventListener('mousedown', function (e) {
+        started = true;
+        //初始位置
+        initX = parseInt(divFrame.style.left);
+        initY = parseInt(divFrame.style.top);
+        console.log(e)
+        //鼠标点击的位置
+        offsetX = e.clientX;
+        offsetY = e.clientY;
+    })
+
+    //鼠标移动时触发的事件
+
+    let handler = function (e) {
+
+        if (started) {
+            console.info(e)
+            //鼠标点移动了的距离
+            var x = e.clientX - offsetX + initX;
+            var y = e.clientY - offsetY + initY;
+            divFrame.style.left = x + "px";
+            divFrame.style.top = y + "px";
+            divTitle.innerHTML = "已拖动";
+        }
+    }
+    divFrame.addEventListener('mousemove', handler)
+
+
+    //鼠标弹起时触发的事件
+
+    divFrame.addEventListener('mouseup', function (e) {
+        divTitle.innerHTML = "结束拖动";
+        started = false;
+        //divFrame.removeEventListener('mousemove', handler)
+
+    })
+
+</script>
+</body>
+
+</html>

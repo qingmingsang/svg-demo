@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+        html,
+        body,
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            list-style: none;
+        }
+
+        #axx {
+            widht: 1000px;
+            height: 1000px;
+            background: lightyellow;
+        }
+    </style>
+
+</head>
+
+<body>
+<div id="axx"></div>
+
+<script src="index.js"></script>
+<script>
+    let svg = createSvgElement('svg', {
+        x: 0,
+        y: 0,
+        width: 500,
+        height: 500
+    })
+
+    svg.id = 'svg';
+
+    let rect = createSvgElement('rect', {
+        x: 0,
+        y: 0,
+        width: 100,
+        height: 100,
+        fill: 'green'
+    })
+    svg.appendChild(rect)
+    //let apple = createCard('apple', '#999', {x: 100, y:100})
+    let div = document.getElementById('axx');
+    div.appendChild(svg)
+</script>
+</body>
+
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+        html,
+        body,
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            list-style: none;
+        }
+
+        #divDrag {
+            background: lightgoldenrodyellow;
+            width: 200px;
+            height: 200px;
+            float: left;
+            cursor: move;
+            /*position: absolute;*/
+        }
+
+        #divTips {
+            float: left;
+            background: lightgrey;
+            width: 200px;
+            height: 200px;
+            line-height: 100px;
+            text-align: center;
+        }
+
+        #divArea {
+            clear: both;
+            background: lightblue;
+            width: 500px;
+            height: 500px;
+        }
+
+        .liF {
+            width: 300px;
+            float: left;
+        }
+
+        .liF img {
+            width: 100%;
+        }
+
+        #ulCart {
+            clear: both;
+            width: 500px;
+            height: 500px;
+            background: lightblue;
+        }
+
+        #pStatus {
+            clear: both;
+            visibility: hidden;
+            height: 100px;
+            background: lightgoldenrodyellow;
+        }
+
+        #divRecycle {
+            height: 400px;
+            width: 400px;
+            background: lightgreen;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="wPub">
+    <ul>
+        <li class="liF" id="liOl">
+            <img src="i1.jpg" class="img95"
+                 draggable="true">
+        </li>
+        <li class="liF" id="li02">
+            <img src="i2.jpg" class="img95"
+                 draggable="true">
+        </li>
+    </ul>
+    <p id="pStatus"></p>
+    <div id="divRecycle" class="EmptRyl">
+
+    </div>
+</div>
+
+<script>
+    //JavaScript Document
+    function $$(id) {
+        return document.getElementById(id);
+    }
+
+    //自定义页面加载时调用的函数
+
+    var intDeleNum = 0;
+
+    //获取全部的图片信息
+    var Drag = document.getElementsByTagName("li");
+    //遍历每一个图片元素
+    for (var intI = 0; intI < Drag.length; intI++) {
+        //为每一个图片元素添加被拖放元素的dragstart事件
+        Drag[intI].addEventListener("dragstart", function (e) {
+            var objDtf = e.dataTransfer;
+            objDtf.setData("text/plain", this.id);
+        }, false);
+    }
+
+    var Recy = $$("divRecycle");
+    //添加目标元素的drop事件
+    Recy.addEventListener("drop", function (e) {
+        var objDtf = e.dataTransfer;
+        var intVal = objDtf.getData("text/plain");
+        Drop_Event(intVal);
+        Recy.className = "HaveRyl";
+    }, false);
+
+
+    //添加页面的dragover事件
+    document.addEventListener("dragover", function (e) {
+        //阻止默认方法,取消拒绝被拖放
+        e.preventDefault();
+    })
+
+    //添加页面drop事件
+
+    document.addEventListener("drop", function (e) {
+        //阻止默认方法，取消拒绝被拖放
+        e.preventDefault();
+    })
+
+    //自定义图片成功被拖入回收站时调用的函数
+    function Drop_Event(Id) {
+        var Node = $$(Id);
+        Node.parentNode.removeChild(Node);
+        intDeleNum++;
+        $$("pStatus").style.visibility = "visible";
+        $$("pStatus").innerHTML = "已成功删除" + intDeleNum + "张图片";
+    }
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+        html,
+        body,
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            list-style: none;
+        }
+    </style>
+
+</head>
+
+<body>
+<div id="axx"></div>
+<script src="index.js"></script>
+<script>
+
+    let svg = createSvgElement('svg', {
+        x: 0,
+        y: 0,
+        width: 500,
+        height: 500
+    })
+
+    svg.id = 'svg';
+
+    let div = document.getElementById('axx');
+    div.appendChild(svg);
+
+    let apple = createCard('apple', '#999', {x: 100, y: 100})
+
+    let orange = createCard('orange', '#orange', {x: 400, y: 400})
+
+    svg.appendChild(apple);
+    svg.appendChild(orange);
+    svg.addEventListener('mousemove', linking, false)
+    svg.addEventListener('mouseup', linkAbort, false)
+</script>
+</body>
+
+</html>
