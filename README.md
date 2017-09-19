@@ -1,4 +1,4 @@
 # svg-demo
-svg training demos
+You can master svg/d3 through these demos. 
 
 
