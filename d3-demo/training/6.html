@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+<body>
+<div>1</div>
+<div>2</div>
+<div>3</div>
+<script type="text/javascript" src="d3.js"></script>
+<script>
+    function foo(selection) {
+        selection
+                .style("color", "red")
+    }
+    foo(d3.selectAll("div"))
+    //call 相当于定义一个函数，再把选择的元素给它
+    //d3.selectAll("div").call(foo);
+</script>
+</body>
+</html>

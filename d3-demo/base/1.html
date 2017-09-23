@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <style></style>
+</head>
+<body>
+<!-- 三个段落元素 -->
+<p>Fire</p>
+<p>Water</p>
+<p>Wind</p>
+<script type="text/javascript" src="d3.js"></script>
+<script>
+    //选择body中所有的p元素，选择集结果赋值给变量p
+    var p = d3.select("body").selectAll("p");
+
+    //绑定数值7到选择集上
+    p.datum(7);
+
+    console.log(p.datum());//7
+
+    //在控制台输出选择集
+    console.log(p);
+</script>
+</body>
+</html>
